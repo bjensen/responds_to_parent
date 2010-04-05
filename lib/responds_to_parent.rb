@@ -1,5 +1,4 @@
 require 'responds_to_parent/action_controller'
-require 'responds_to_parent/selector_assertion'
 
 module ActionController
   class Base
@@ -7,10 +6,13 @@ module ActionController
   end
 end
 
-module ActionController
-  module Assertions
-    module SelectorAssertions
-      include RespondsToParent::SelectorAssertion
+if ENV["RAILS_ENV"] == "test"
+  require 'responds_to_parent/selector_assertion'
+  module ActionController
+    module Assertions
+      module SelectorAssertions
+        include RespondsToParent::SelectorAssertion
+      end
     end
   end
 end
