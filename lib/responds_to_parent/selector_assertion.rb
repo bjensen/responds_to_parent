@@ -13,9 +13,9 @@ module RespondsToParent
     # to be evaluated in the parent window and passes it to the block.
     # Typically #assert_select_rjs is used in the block.
     def assert_select_parent(*args, &block)
-      wrapper_re_str = Regexp.escape("with(window.parent) { setTimeout(function() { window.eval('") +
+      wrapper_re_str = Regexp.escape("with(window.parent) { window.eval('") +
                      "(.*)" +
-                     Regexp.escape("'); window.loc && loc.replace('about:blank'); }, 1) }")
+                     Regexp.escape("'); window.loc && loc.replace('about:blank'); }")
       match = @response.body.match(Regexp.new(wrapper_re_str))
 
       if match
